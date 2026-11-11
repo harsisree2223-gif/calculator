@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and responsive viewport setup -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimalist Dark Calculator</title>
+
+  <!-- Google Font: Inter for a clean, modern iOS-style typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Link to our external CSS stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Main container that centers the calculator on screen -->
+  <main class="calculator-container">
+    <div class="calculator" role="region" aria-label="Calculator">
+
+      <!-- ================= DISPLAY AREA ================= -->
+      <!-- Shows what equation is currently being calculated -->
+      <div class="display">
+        <!-- Shows the previous number and operation (e.g., "12 +") -->
+        <div class="previous-operand" id="previous-operand" aria-live="polite"></div>
+        <!-- Shows the primary current input or final result (e.g., "34") -->
+        <div class="current-operand" id="current-operand" aria-live="polite">0</div>
+      </div>
+
+      <!-- ================= KEYPAD / BUTTONS ================= -->
+      <!-- 
+        We use data-* attributes (like data-number, data-action) so JavaScript
+        can easily target buttons without relying strictly on CSS class names.
+      -->
+      <div class="keypad">
+        <!-- Row 1: Utility & Functions -->
+        <button type="button" class="btn btn-function" data-action="clear" aria-label="Clear all">AC</button>
+        <button type="button" class="btn btn-function" data-action="toggle-sign" aria-label="Toggle positive or negative">±</button>
+        <button type="button" class="btn btn-function" data-action="percent" aria-label="Percentage">%</button>
+        <button type="button" class="btn btn-operator" data-action="operator" data-operator="÷" aria-label="Divide">÷</button>
+
+        <!-- Row 2 -->
+        <button type="button" class="btn btn-number" data-number="7">7</button>
+        <button type="button" class="btn btn-number" data-number="8">8</button>
+        <button type="button" class="btn btn-number" data-number="9">9</button>
+        <button type="button" class="btn btn-operator" data-action="operator" data-operator="×" aria-label="Multiply">×</button>
+
+        <!-- Row 3 -->
+        <button type="button" class="btn btn-number" data-number="4">4</button>
+        <button type="button" class="btn btn-number" data-number="5">5</button>
+        <button type="button" class="btn btn-number" data-number="6">6</button>
+        <button type="button" class="btn btn-operator" data-action="operator" data-operator="-" aria-label="Subtract">−</button>
+
+        <!-- Row 4 -->
+        <button type="button" class="btn btn-number" data-number="1">1</button>
+        <button type="button" class="btn btn-number" data-number="2">2</button>
+        <button type="button" class="btn btn-number" data-number="3">3</button>
+        <button type="button" class="btn btn-operator" data-action="operator" data-operator="+" aria-label="Add">+</button>
+
+        <!-- Row 5: Spans & Decimal -->
+        <!-- btn-zero spans two columns just like the classic iOS calculator -->
+        <button type="button" class="btn btn-number btn-zero" data-number="0">0</button>
+        <button type="button" class="btn btn-number" data-action="decimal" aria-label="Decimal point">.</button>
+        <button type="button" class="btn btn-operator btn-equals" data-action="calculate" aria-label="Equals">=</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Link to our JavaScript logic file (loaded at the end of body for fast rendering) -->
+  <script src="script.js"></script>
+</body>
+</html>
+

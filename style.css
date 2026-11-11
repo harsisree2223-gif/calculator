@@ -1,0 +1,208 @@
+/* ==========================================================================
+   CSS STYLESHEET: Modern iOS-Style Dark Calculator
+   ========================================================================== */
+
+/* 1. CSS VARIABLES (Design Tokens)
+   - Storing colors in variables makes them easy to change in one place.
+   - Inspired by the clean, ergonomic iOS dark palette. */
+:root {
+  --bg-page: #0a0a0c;             /* Deep ambient background */
+  --bg-calculator: #16161a;       /* Calculator body */
+  --calc-border: rgba(255, 255, 255, 0.08);
+
+  /* Button Colors */
+  --btn-num-bg: #26262b;          /* Dark gray for number buttons */
+  --btn-num-text: #ffffff;
+  --btn-num-hover: #33333a;
+
+  --btn-func-bg: #44444d;         /* Mid gray for function keys (AC, ±, %) */
+  --btn-func-text: #ffffff;
+  --btn-func-hover: #555560;
+
+  --btn-op-bg: #ff9f0a;           /* Vibrant orange for operators */
+  --btn-op-text: #ffffff;
+  --btn-op-hover: #ffb23d;
+  --btn-op-active: #cc7f08;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* 2. GLOBAL RESET & BASE STYLES
+   - Eliminates default browser margins and enables consistent box-sizing. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* Removes blue tap box on mobile */
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-page);
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* 3. CALCULATOR HOUSING / CARD
+   - Fixed aspect ratio with soft rounded corners and ambient shadow. */
+.calculator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.calculator {
+  background-color: var(--bg-calculator);
+  border: 1px solid var(--calc-border);
+  width: 100%;
+  max-width: 360px;
+  border-radius: 36px;
+  padding: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* 4. DISPLAY SECTION
+   - Stacked layout: previous calculation line on top, current result below. */
+.display {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  min-height: 110px;
+  padding: 0 12px 16px 12px;
+  margin-bottom: 12px;
+  word-break: break-all;
+  overflow: hidden;
+}
+
+/* Small secondary line (e.g., "125 +") */
+.previous-operand {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.15rem;
+  font-weight: 400;
+  min-height: 1.5rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  transition: opacity 0.15s ease;
+}
+
+/* Large primary line (e.g., "350") */
+.current-operand {
+  color: #ffffff;
+  font-size: 3.25rem;
+  font-weight: 300; /* Thin modern look */
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+/* 5. KEYPAD GRID
+   - 4-column CSS Grid with uniform gaps. */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* 6. BUTTON STYLES & INTERACTION
+   - Smooth circular buttons with responsive active tactile press effect. */
+.btn {
+  font-family: inherit;
+  font-size: 1.5rem;
+  font-weight: 400;
+  height: 68px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: background-color 0.15s ease, transform 0.08s ease, filter 0.15s ease;
+  outline: none;
+}
+
+/* Subtle tap animation: slightly scales down button when clicked */
+.btn:active {
+  transform: scale(0.93);
+}
+
+/* Accessible focus ring for keyboard navigation */
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 159, 10, 0.5);
+}
+
+/* Button Variety 1: Numbers (0 - 9, .) */
+.btn-number {
+  background-color: var(--btn-num-bg);
+  color: var(--btn-num-text);
+}
+
+.btn-number:hover {
+  background-color: var(--btn-num-hover);
+}
+
+/* Button Variety 2: Functions (AC, ±, %) */
+.btn-function {
+  background-color: var(--btn-func-bg);
+  color: var(--btn-func-text);
+  font-weight: 500;
+}
+
+.btn-function:hover {
+  background-color: var(--btn-func-hover);
+}
+
+/* Button Variety 3: Operators (+, -, ×, ÷, =) */
+.btn-operator {
+  background-color: var(--btn-op-bg);
+  color: var(--btn-op-text);
+  font-size: 1.75rem;
+}
+
+.btn-operator:hover {
+  background-color: var(--btn-op-hover);
+}
+
+.btn-operator:active {
+  background-color: var(--btn-op-active);
+}
+
+/* 7. SPECIAL LAYOUT: ZERO BUTTON
+   - Spans 2 grid columns and morphs from a circle into an elongated capsule. */
+.btn-zero {
+  grid-column: span 2;
+  border-radius: 34px;
+  justify-content: flex-start;
+  padding-left: 28px;
+}
+
+/* 8. RESPONSIVE ADJUSTMENTS
+   - Scales slightly on smaller mobile viewports so nothing overflows. */
+@media (max-width: 380px) {
+  .calculator {
+    padding: 16px;
+    border-radius: 28px;
+  }
+
+  .btn {
+    height: 60px;
+    font-size: 1.35rem;
+  }
+
+  .btn-zero {
+    padding-left: 24px;
+    border-radius: 30px;
+  }
+
+  .current-operand {
+    font-size: 2.75rem;
+  }
+}
+
